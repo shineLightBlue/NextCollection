@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 沙箱模式 就是将多个变量进行私有化(常规闭包只能私有化一个变量)
+        // function sandbox() {
+        //     // 现在a,b两个变量在函数体中是局部变量 外部是无法访问
+        //     let a = 10;
+        //     let b = 20;
+        //     let c = 30;
+        //     // 通过返回一个对象 对象下的每一个属性提供数据操作能力 就可以选择性的公开
+        //     return {
+        //         // 获取a变量的操作
+        //         getA: function () {
+        //             return a;
+        //         },
+        //         // 修改a变量操作
+        //         setA: function (value) {
+        //             a = value;
+        //         },
+        //         getB: function () {
+        //             return b;
+        //         },
+        //         setB: function (value) {
+        //             b = value;
+        //         }
+        //     }
+        // }
+
+        // let outer = sandbox();
+
+        // console.log(outer)
+        // outer.setA(200)
+        // console.log(outer.getA())
+        // 2、语法糖
+        function sandbox() {
+            let a = 10;
+            let b = 20;
+            return {
+                // 只要读取a属性会自动执行get 对应的函数
+                get a() {
+                    console.log('有人想要读取a变量的值了，被抓了')
+                    return a;
+                },
+                // 只要设置a属性 会自动执行set对应的函数
+                set a(value) {
+                    console.log('setA')
+                    a = value;
+                },
+            }
+        }
+        let outer = sandbox();
+        outer.a = 30;
+        console.log(outer.a);
+
+        console.log(outer)
+
+
+    </script>
+</body>
+
+</html>

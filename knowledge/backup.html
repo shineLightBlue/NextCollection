@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>XXXX</h1>
+    </div>
+    <script>
+
+
+        function miniVue(data, cb) {
+            // 是data的代理对象
+            let target = {};
+            for (let key in data) {
+                Object.defineProperty(target, key, {
+                    get() {
+                        return data[key];
+                    },
+                    set(value) {
+                        data[key] = value;
+                        // 修改完毕数据需要更新页面上显示的内容  但是页面布局 不确定 使用回调 
+                        cb(target);
+                    }
+                })
+            }
+            cb(target);
+            // 将代理对象返回
+            return target;
+        }
+        // data所接受的是返回的代理对象，通过代理对象可以操作到title
+        let data = miniVue({ title: 'czczcz' }, data => {
+            document.querySelector('#app>h1').innerHTML = data.title
+        })
+        
+    </script>
+</body>
+
+</html>

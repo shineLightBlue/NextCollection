@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1、in关键字  检查对象下是否存在属性 语法是 属性名称 in 对象
+        function Dog(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Dog.prototype.leg = 2;
+        console.log(Dog.prototype)
+
+        let obj = new Dog('李四', 20)
+        console.log('name' in obj);
+        console.log('like' in obj);
+        console.log('leg' in obj);// in也会检查原型上是否存在
+
+        // 2、for in语句 会将对象以及对象原型上的所有属性都会遍历
+        for (let key in obj) {
+            console.log(key);
+        }
+        console.log(obj)
+        // 3、hasOwnProperty 检查属性是否是对象本身所拥有
+        console.log(obj.hasOwnProperty('name'));//true 是对象本身的属性
+        console.log(obj.hasOwnProperty('leg'))//false 是原型上的属性
+
+        // 4、拷贝继承
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.leg = 2;
+        Person.prototype.say = function () {
+            console.log(this.name + '你好！')
+        }
+
+        function Student(idCard, ...args) {
+            this.idCard = idCard;
+            // 实例化一个父类对象
+            let parent = new Person(...args);
+            for (let key in parent) {
+                // 区分现在属性 是自己的还是原型上
+                if(parent.hasOwnProperty(key)){
+                    this[key] = parent[key];
+                }else{
+                    // 原型下的属性   this.constructor 就表示Student 只是没有写固定的名字 this 表示lisi对象 本身没有constructor属性 但是原型上有
+                    this.constructor.prototype[key] = parent[key];
+                }
+            }
+        }
+        let lisi = new Student('1111', '李四', 18)
+        console.log(lisi)
+        lisi.say();
+    </script>
+</body>
+
+</html>

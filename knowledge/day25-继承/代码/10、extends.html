@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            run() {
+                console.log(this.name + '提桶跑路了！');
+            }
+        }
+        
+        // 继承是单继承 但是可以链式继承 A->B->C->D
+        class Student extends Person {
+            // 继承 如果子类不写构造函数默认使用父类的构造函数，如果子类写了构造函数 就一定要将父类的构造函数调用起来
+            constructor(idCard,...args){
+                super(...args);
+                this.idCard = idCard;  
+            }
+        }
+
+        let s = new Student('1010','赵春阳',20)
+        console.log(s)
+        s.run();
+    </script>
+</body>
+
+</html>

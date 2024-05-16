@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class SnakeMap {
+            constructor() {
+                console.log('construct SnakeMap')
+            }
+            init() {
+                console.log('地图显示了')
+            }
+        }
+        class Food {
+            constructor() {
+                console.log('construct Food')
+            }
+            init() {
+                console.log('食物显示了')
+            }
+        }
+        class Snake {
+            constructor() {
+                console.log('construct Snake')
+            }
+            init() {
+                console.log('蛇显示了')
+            }
+        }
+
+        // 总开关的构造函数
+        class OnOff {
+            constructor() {
+                // 保存最后需要控制的对象
+                this.tasks = [];
+            }
+            // 实现添加总开关中需要控制的对象
+            addTask(obj) {
+                this.tasks.push(obj);
+            }
+            start() {
+                this.tasks.forEach(item => {
+                    item.init();
+                })
+            }
+        }
+
+
+        let kg = new OnOff();
+
+        kg.addTask(new SnakeMap);
+        kg.addTask(new Food);
+        kg.addTask(new Snake);
+        kg.start();
+        
+    </script>
+</body>
+
+</html>

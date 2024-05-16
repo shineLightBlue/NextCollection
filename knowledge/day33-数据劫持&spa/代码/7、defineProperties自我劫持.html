@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        let data = {
+            title: '叼德一',
+            desc: 'XXX'
+        }
+
+        for (let key in data) {
+            Object.defineProperties(data,{
+                // 1、先将当前属性进行复制
+                ['_'+key]:{
+                    value:data[key],
+                    writable:true
+                },
+                // 2、为当前属性设置get与set
+                [key]:{
+                    get(){
+                        console.log('get')
+                        return data['_'+key]  
+                    },
+                    set(value){
+                        console.log('修改数据')
+                        data['_'+key] = value;
+                    }
+                }
+            })
+        }
+        console.log(data)
+        data._title='xaxaxa'
+        console.log(data)
+        // let key = 'a'
+        // // let obj = {}
+        // // obj[key] 获取到obj对象下key变量值的哪一个属性
+        // let obj = {
+        //     // 表示有一个叫做key的属性值是xxx
+        //     // key:'xxx'
+        //     // 表示对象下有一个属性名称是key变量的值  属性值是xxxx
+        //     // [key]:'xxx'
+        //     ['_'+key]:'xxxx'
+        // }
+        // console.log(obj)
+
+
+    </script>
+</body>
+
+</html>

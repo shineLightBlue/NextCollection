@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function fn() {
+            // 构造函数中return基本类型最终new的时候得到的还是 对象 如果是return引用类型 最终得到的就是引用类型的对象
+            // return 1;
+            return [];
+        }
+        let f = new fn()
+        console.log(f);
+        // 寄生方式一
+        function Person() {
+            this.leg = 2;
+        }
+
+        function Student() {
+            return new Person();
+        }
+
+        let s = new Student();
+        console.log(s);
+
+        // 2、寄生方式二
+        function Car(brand, type) {
+            this.brand = brand;
+            this.type = type;
+        }
+        Car.prototype.lt = 4;
+        
+        function Bmw(price){
+            this.price = price;
+        }
+        // 寄生使用父类的原型作为自己的原型
+        Bmw.prototype = Car.prototype;
+        let bc = new Bmw(40);
+        console.log(bc);
+
+
+
+
+    </script>
+</body>
+
+</html>

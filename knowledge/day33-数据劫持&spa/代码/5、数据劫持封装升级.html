@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{username}}</h1>
+        <h2>{{ age }}</h2>
+        <div>{{username}} </div>
+    </div>
+    <script>
+
+        function VuePlus(options) {
+            // 获取容器的dom对象
+            let root = document.querySelector(options.el);
+            // console.log(root)
+            if (!root) {
+                throw new Error('缺少根元素');
+            }
+            // 获取到根元素中标签
+            let rootHtml = root.innerHTML;
+            // console.log(rootHtml)
+            if (Object.prototype.toString.call(options.data) != '[object Object]') {
+                throw new Error('数据必须是对象格式');
+            }
+            // 设置代理对象
+            let target = {};
+            for (let key in options.data) {
+                Object.defineProperty(target, key, {
+                    get() {
+                        console.log('get')
+                        return options.data[key];
+                    },
+                    set(value) {
+                        console.log('有人想要修改数据 我需要更新视图')
+                        options.data[key] = value;
+                        // 更新视图
+                        render(root, rootHtml, target);
+                    }
+                })
+            }
+            // 渲染视图
+            render(root, rootHtml, target);
+            return target;
+        }
+
+        function render(root, rootHtml, target) {
+            // console.log(root,rootHtml,target)
+            // 将字符串中{{}}符号替换为对应的数据
+            // console.log(rootHtml)
+            // 将字符串中所有的特殊符号全部找到
+            let res = rootHtml.match(/\{\{\s*(.*)\s*\}\}/g);
+            // console.log(res)
+            // 如果找不到特殊符号 res为null
+            res && res.forEach(item => {
+                // console.log(item)
+                // 获取到数据名称
+                let key = item.slice(2,-2).trim();
+                rootHtml = rootHtml.replace(item,target[key]);
+            })
+            root.innerHTML = rootHtml;
+        }
+        let a  = VuePlus({
+            el: '#app',
+            data: {
+                username: 'javascript',
+                age: 20
+            }
+        })
+        a.age=300
+        // console.log(a.username)
+    </script>
+</body>
+
+</html>

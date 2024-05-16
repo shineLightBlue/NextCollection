@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // let data = {
+        //     name: 'a',
+        //     age: 20
+        // }
+
+        // let target = {}
+        // for (let key in data) {
+        //     Object.defineProperty(target, key, {
+        //         get() {
+        //             console.log('读取' + key + '属性')
+        //             return data[key]
+        //         },
+        //         set(val) {
+        //             console.log('修改' + key + '属性')
+        //             data[key] = val;
+        //         }
+        //     })
+        // }
+
+        // proxy实现代理
+        let data = {
+            name: 'a',
+            age: 20
+        }
+        // new Proxy 返回一个代理对象
+        let p = new Proxy(data,{
+            // data下所有的属性 只要读取都会自动的触发get函数
+            // 三个参数分别表示 数据源对象，属性名称与代理对象
+            get(source,propName,target){
+                console.log('有人要读取值')
+                console.log(source,propName,target)
+                return source[propName]
+            },
+            // data下所有的属性 只要修改都会自动的触发set函数
+            // 三个参数跟别表示 数据源对象，属性名称与要修改的值
+            set(source,propName,value){
+                console.log('有人要修改值')
+                console.log(source,propName,value)
+                source[propName] = value
+            }
+        })
+        // console.log(p)
+        // p.name='b'  
+        // console.log(p.name)
+
+        // console.log(p)
+        console.log(data.name)
+    </script>
+</body>
+
+</html>

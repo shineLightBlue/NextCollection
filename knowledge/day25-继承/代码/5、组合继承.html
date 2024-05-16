@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.leg = 2;
+        Person.prototype.say = function () {
+            console.log(this.name + '你好！')
+        }
+
+        function Student(idCard,...args) {
+            this.idCard = idCard;
+            // 实现继承
+            Person.call(this,...args)
+        }
+        // 使用原型继承
+        Student.prototype = new Person();
+
+        // 实例化对象
+        let p = new Student('1111','李四',20)
+        console.log(p)
+        p.say()
+
+        for(let key in p){
+            console.log(key)
+        }
+    </script>
+</body>
+
+</html>

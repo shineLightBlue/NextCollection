@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue-2.5.17.js"></script>
+</head>
+
+<body>
+    <!-- 框架中双向绑定想要实现的是数据与视图任何一个部分改变其他的跟着改变 -->
+    <div id="app">
+        <div>{{title}}</div>
+        <input type="text" v-model="nickname" @keydown.enter="addUser">
+        <h1 v-for="user in users">{{user.name}}</h1>
+        
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                title: '康师傅绿茶',
+                nickname: '罗一鸣',
+                users:[
+                    {id:1,name:'张三'}
+                ]
+            },
+            methods:{
+                addUser(){
+                    this.users.push({id:3,name:this.nickname})
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

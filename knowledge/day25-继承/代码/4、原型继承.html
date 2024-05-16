@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1、原型修改问题
+        function Pig(leg = 4) {
+            this.leg = leg
+        }
+        // 在原型上添加属性
+        // Pig.prototype.sleep = function () {
+        //     console.log('特能睡');
+        // }
+        // 修改原型是将Pig 构造函数的原型整体换掉
+        Pig.prototype = {
+            sleep: function () {
+                console.log('特能睡');
+            }
+        }
+        let peiqi = new Pig()
+        console.log(peiqi)
+        peiqi.sleep()
+        // 2、实现原型继承
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.leg = 2;
+        Person.prototype.say = function () {
+            console.log(this.name + '你好！')
+        }
+        console.log(Person.prototype.__proto__)
+
+        function Student(idCard) {
+            this.idCard = idCard;
+        }
+        // 原型继承 就是将子类的原型设置为父类的对象
+        let p = new Person('旺财', 20);
+        // console.log(p.__proto__)
+        Student.prototype = p;
+        console.log( Student.prototype)
+        let wanglaoshi = new Student('9527');
+        console.log(wanglaoshi)
+        console.log(wanglaoshi.leg);//可以调用原型下的属性方法
+        wanglaoshi.say();
+        // 优点 可以使用父类原型下的信息 缺点 父类属性 被保存到原型上 没有被转移到对象本身保存
+        // 对象中 大部分属性 需要对象本身保存 极少的属性 是所有对象共享  所有方法 绝对共享
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1、call方法的使用
+        let obj = {};
+        function fn(name, age) {
+            obj.name = name;
+            obj.age = age;
+        }
+        fn.call(obj, '赵春阳', 38);
+        console.log(obj);
+        // 2、使用call实现借用继承
+        function Human(name) {
+            this.name = name;
+        }
+        Human.prototype.run = function () {
+            console.log('代码与人总有一个要跑');
+        }
+
+        function Student(idCard,...args) {
+            this.idCard = idCard
+            // 使用call实现借用继承
+            // Student中的this 是谁在new就表示谁 此时表示的是zhangfei这个对象
+            Human.call(this,...args);//将Human构造函数调用 并且修改Human中this为当前Student中this表示的对象
+        }
+        Student.prototype.sleep = function () {
+            console.log('睡觉是学生的特殊能力');
+        }
+
+        let zhangfei = new Student('10101','张飞')
+        console.log(zhangfei)
+        zhangfei.run();
+
+
+
+
+
+    </script>
+</body>
+
+</html>

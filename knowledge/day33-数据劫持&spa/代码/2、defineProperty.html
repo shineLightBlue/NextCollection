@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            defineProperty 用于设置对象下的属性 可以完成劫持功能
+            Object.defineProperty(obj, prop, descriptor)
+            第一个参数指定对象名称
+            第二个参数表示指定属性名称
+            第三个参数 是对属性配置 要求是一个对象 对象下可以设置的属性名称是固定
+        */
+        let obj = {
+            age: 28
+        };
+        let name = '李四'
+        Object.defineProperty(obj, 'name', {
+            // value: '张三',//设置属性值,
+            // writable: true,//控制属性值是否可以修改 默认为false 表示不能修改
+            // enumerable: true,//控制属性是否可以被遍历 默认false 不能遍历
+            // configurable: true,//控制属性是否可以被删除 默认false 不能删除
+            // 系统内置提供get与set  表示只要读取或者修改属性 自动调用的函数 一般设置 get、set 上面的配置就不会设置
+            get() {
+                console.log('有人想要读取name属性，被我抓到了')
+                return name;
+            },
+            // set是修改器 一旦想要修改数据会自动被调用 并且想要修改的值也会被作为第一个参数传递
+            set(value) {
+                console.log('有人想要修改数据，' + value + '被我击毙了');
+                name=value
+                // console.log(this)
+                // this.name = value //这个代码不能写  可以修改其他的变量或者属性都可以就是不能修改自己
+            }
+        })
+
+        console.log(obj.name)
+        obj.name='lalala'
+        console.log(obj.name)
+        for(let key in obj){
+            console.log(key)
+        }
+    </script>
+</body>
+
+</html>

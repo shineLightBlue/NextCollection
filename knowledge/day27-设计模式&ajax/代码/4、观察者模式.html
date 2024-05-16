@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Watch {
+            constructor() {
+                // 记录下自定义事件与对应的事件处理程序关系 使用对象格式 属性名称使用事件名称 属性值 需要使用函数 但是需要实现一个事件上可以存在多个处理程序 所以使用数组格式 数组中每一个元素就是一个事件处理程序
+                this.events = {}
+            }
+            // 实现通知监视器 需要监视那些行为 第一个参数是事件名称 第二个参数事件处理程序
+            add(typeName, handler) {
+                if (this.events[typeName]) {
+                    // 说明以前已经针对这个事件设置了处理程序
+                    this.events[typeName].push(handler);
+                } else {
+                    this.events[typeName] = [handler];
+                }
+                console.log(this.events)
+            }
+            // 一定行为触发了 做什么
+            emit(typeName, param) {
+                // 说明目前事件没有被监视
+                if (!this.events[typeName]) {
+                    return false;
+                }
+                let event = {
+                    type: typeName,
+                    time: Date.now()
+                }
+                Object.assign(event, param);
+                console.log(event)
+                this.events[typeName].forEach(item => {
+                    item(event);
+                })
+
+            }
+            // 解除监视行为
+            remove(typeName, handler) {
+                // 说明目前事件没有被监视
+                if (!this.events[typeName]) {
+                    return false;
+                }
+                for (let i = 0; i < this.events[typeName].length; i++) {
+                    if (this.events[typeName][i] == handler) {
+                        this.events[typeName].splice(i, 1);
+                        i--;
+                    }
+                }
+
+            }
+            // 清除监视的行为
+            clear(typeName) {
+                // 说明目前事件没有被监视
+                if (!this.events[typeName]) {
+                    return false;
+                }
+
+                delete this.events[typeName];
+            }
+        }
+        let w = new Watch();
+        function sleepHandler(event) {
+            console.log(event.name + '被揍一顿')
+        }
+        w.add('sleep', function () {
+            console.log('叉出去');
+        });
+        w.add('sleep', sleepHandler);
+        w.add('sleep', sleepHandler);
+        w.add('sleep', sleepHandler);
+
+
+        w.emit('sleep', { name: '张三', last: '1h' });
+        console.log(w);
+
+    </script>
+</body>
+
+</html>

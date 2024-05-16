@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>按钮</button>
+    <button>按钮</button>
+    <script>
+        let btns = document.querySelectorAll('button');
+        console.log(btns);
+        var i = 0
+        for (; i < btns.length; i++) {
+            console.log(i)
+            btns[i].onclick = (function (a) {
+                return function () {
+                    console.log(a)
+                }
+            })(i);
+        }
+        
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 20000px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <script src="../../common.js"></script> -->
+    <script>
+        // 节流 就是固定的时间间隔才可以执行对应事情
+        // let start = Date.now();
+        // window.onscroll = function () {
+        //     // 计算事件触发时间
+        //     let end = Date.now();
+        //     if (end - start >= 2000) {
+        //         console.log('滚起来');
+        //         start = end;
+        //     }
+        // }
+
+        function fn() {
+            let start = Date.now();
+            return function () {
+                let end = Date.now();
+                if (end - start >= 2000) {
+                    console.log('滚起来');
+                    start = end;
+                }
+            }
+        }
+        // window.onscroll = fn();
+        // 节流函数
+        // window.onscroll = throttle(function(){
+        //     console.log('滚起来')
+        // },2000);
+    </script>
+</body>
+
+</html>

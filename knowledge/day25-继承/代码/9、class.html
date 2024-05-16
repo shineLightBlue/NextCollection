@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            语法 
+                class 类名称{
+                    //构造函数 这里面写的代码 只要实例化 就会被自动执行
+                    constructor(){}
+                    方法(){}
+                }
+                在class中所写的函数都需要使用对象简写形式 并且每一个函数直接不能有逗号
+
+                class语法中static 表示静态的意思 静态不需要使用实例对象调用 可以直接使用类名称调用
+        */ 
+        class Person{
+            static leg = 2;
+            constructor(name,age){
+                this.name = name;
+                this.age = age;
+            }
+            say(){
+                console.log(this.name+'说明：老默 我想吃鱼！');
+            } 
+            static ask(){
+                console.log('风浪越大鱼越贵');
+            }
+        }
+
+        let p = new Person('高启强',18);
+        console.log(p)
+        p.say();
+
+        console.log(Person.leg)
+        Person.ask();
+        // ES5中静态
+        function Human(){
+
+        }
+        Human.a = 20;
+        Human.say = function(){console.log('哈哈')}
+
+        console.log(Human.a);
+        Human.say();
+    </script>
+</body>
+</html>

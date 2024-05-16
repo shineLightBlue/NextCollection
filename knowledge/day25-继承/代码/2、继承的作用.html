@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Cat(name) {
+            this.name = name;
+        }
+        Cat.prototype.eat = function () {
+            console.log('能捕鱼');
+        }
+        Cat.prototype.run = function () {
+            console.log('跑起来')
+        }
+
+
+        function Dog(name){
+            this.name = name;
+        }
+        Dog.prototype.run = function(){
+            console.log('跑起来')
+        }
+        // 上面的代码功能很正常 但是run方法对于每一个个体都是具备的能力，在构造函数中代码重复了。
+        // 可以通过使用继承设计一个更大的类 让Cat与Dog都继承整个更大的类
+
+
+    </script>
+</body>
+
+</html>

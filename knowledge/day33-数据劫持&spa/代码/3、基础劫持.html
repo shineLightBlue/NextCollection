@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="title"></h1>
+    <h1 id="content"></h1>
+    <script>
+        // 数据源
+        let source = {
+            title: 'aaaaa',
+            content: 'xxxxx'
+        };
+        // // 劫匪
+        let target = {};
+        for (let key in source) {
+            Object.defineProperty(target, key, {
+                get() {
+                    console.log('有人读取'+key)
+                    return source[key];
+                },
+                set(value) {
+                    console.log('有人修改了'+key)
+
+                    source[key] = value;
+                    document.querySelector('#'+key).innerHTML = source[key]
+                }
+            })
+        }
+
+        // Object.defineProperty(target, 'title', {
+        //     get() {
+        //         console.log('有人读取title')
+        //         return source.title;
+        //     },
+        //     set(value) {
+        //         console.log('有人修改了title')
+
+        //         source.title = value;
+        //         document.querySelector('#title').innerHTML = source.title
+        //     }
+        // })
+
+        // Object.defineProperty(target, 'content', {
+        //     get() {
+        //         console.log('有人读取content')
+        //         return source.content;
+        //     },
+        //     set(value) {
+        //         console.log('有人修改了content')
+
+        //         source.content = value;
+        //         document.querySelector('#content').innerHTML = source.content
+        //     }
+        // })
+        // console.log(target)
+        // console.log(target.title)
+        // target.title = 'kkkkk'
+        // console.log(target.content)
+        // target.content = 'nnnnn'
+        document.querySelector('#title').innerHTML = source.title
+        document.querySelector('#content').innerHTML = source.content
+
+    </script>
+</body>
+
+</html>

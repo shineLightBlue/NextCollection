@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = [1, 2, 3, 4];
+        /*
+            i=0  执行arr.splice(0,1)  结果[2,3,4];
+            i=1  执行arr.splice(1,1)  结果[2,4];
+            i=2 条件不成立
+        
+        */
+
+
+        // for (let i = 0; i < arr.length; i++) {
+        //     arr.splice(i, 1);
+        // }
+        // 反向删除
+        // for (let i = arr.length-1; i >=0; i--) {
+        //     arr.splice(i, 1);
+        // }
+
+        // 手动修改下标
+        // for (let i = 0; i < arr.length; i++) {
+        //     arr.splice(i, 1);
+        //     i--;
+        //     console.log(i)
+        // }
+
+        while (arr.length > 0) {
+            arr.splice(0, 1);
+        }
+
+        console.log(arr);
+
+    </script>
+</body>
+
+</html>

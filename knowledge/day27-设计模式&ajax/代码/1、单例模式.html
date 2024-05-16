@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1、封装工具类 因为以前的公共函数 会存在同名问题 这些公共函数都是为了提供辅助功能，将整体看做一个类 最后new出一个对象即可
+        // class Tool {
+        //     constructor() {
+
+        //     }
+        //     makeRandom(min, max) {
+        //         return Math.floor(Math.random() * (max - min)) + min;
+        //     }
+        // }
+        // let t = new Tool;
+        // console.log(t.makeRandom(10,100));
+        // 如果后期还需要使用工具类型下的方法 还需要new对象
+        // 2、实现单例 可以将new出来的对象使用一个变量保存 以后每次使用该变量就可以
+        // let instance = null;//保存工具类对象
+        // function getInstance(){
+        //     if(!instance){
+        //         instance = new Tool;
+        //     }
+        //     return instance;
+        // }
+        // getInstance().makeRandom(1,29)
+        // console.log(getInstance() == getInstance())
+        // 3、解决变量命名问题
+        // function getInstance(){
+        //     let instance = null;
+        //     return function(){
+        //         if(!instance){
+        //             instance = new Tool;
+        //         }
+        //         return instance;
+        //     }
+        // }
+
+        // let getToolAction = getInstance();
+        // console.log(getToolAction() == getToolAction());
+        // const tool = (function(){
+        //     let instance = null;
+        //     // 表示工具类
+        //     class A{}
+        //     return function(){
+        //         if(!instance){
+        //             instance = new A;
+        //         }
+        //         return instance;
+        //     }
+        // })();
+        // console.log(tool() == tool())
+
+
+        class Tool {
+            // 静态属性
+            static instance;
+            constructor() {
+
+            }
+            static getInstance(){
+                if(!this.instance){
+                    this.instance = new Tool;
+                }
+                return this.instance;
+            }
+            makeRandom(min, max) {
+                return Math.floor(Math.random() * (max - min)) + min;
+            }
+        }
+        console.log(Tool.getInstance() == Tool.getInstance())
+    </script>
+</body>
+
+</html>

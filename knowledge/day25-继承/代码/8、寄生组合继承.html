@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // // 1、寄生+借用
+        // function Person(name, age) {
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // Person.prototype.leg = 2;
+        // Person.prototype.say = function () {
+        //     console.log(this.name + '你好！')
+        // }
+
+        // function Student(idCard, ...args) {
+        //     this.idCard = idCard;
+        //     // 借用继承
+        //     Person.call(this,...args)
+        // }
+        // Student.prototype = Person.prototype;
+
+        // let s = new Student('1010','王五',18)
+        // console.log(s);
+
+
+        // 2、寄生+借用+原型继承
+        // function Person(name, age) {
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // Person.prototype.say = function () {
+        //     console.log(this.name + '你好！')
+        // }
+
+        // function Student(idCard, ...args) {
+        //     this.idCard = idCard;
+        //     // 借用继承
+        //     Person.call(this, ...args)
+        // }
+        // // 1、造一个第三方构造函数
+        // function Other(){}
+        // // 2、针对第三方构造函数使用寄生继承
+        // Other.prototype = Person.prototype;
+        // // 3、将子类的原型设置为第三方的实例对象
+        // let o = new Other;
+        // Student.prototype = o;
+
+        // let s = new Student('1010','王八',18);
+        // console.log(s);
+
+        // Student.prototype.a = 10;
+        // console.log(Person.prototype)
+
+        // 3、解决命名问题
+        // function Person(name, age) {
+        //     this.name = name;
+        //     this.age = age;
+        // }
+        // Person.prototype.say = function () {
+        //     console.log(this.name + '你好！')
+        // }
+
+        // function Student(idCard, ...args) {
+        //     this.idCard = idCard;
+        //     // 借用继承
+        //     Person.call(this, ...args)
+        // }
+
+        // ; (function () {
+        //     // 1、造一个第三方构造函数
+        //     function Other() { }
+        //     // 2、针对第三方构造函数使用寄生继承
+        //     Other.prototype = Person.prototype;
+        //     // 3、将子类的原型设置为第三方的实例对象
+        //     let o = new Other;
+        //     Student.prototype = o;
+        // })();
+
+
+        // let s = new Student('1010', '王八', 18);
+        // console.log(s);
+
+        // 4、寄生组合继承最终版  将第三方构造函数与子类捆绑
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.say = function () {
+            console.log(this.name + '你好！')
+        }
+        
+        const Student = (function () {
+            function Student(idCard, ...args) {
+                this.idCard = idCard;
+                // 借用继承
+                Person.call(this, ...args)
+            }
+            // 1、造一个第三方构造函数
+            function Other() { }
+            // 2、针对第三方构造函数使用寄生继承
+            Other.prototype = Person.prototype;
+            // 3、将子类的原型设置为第三方的实例对象
+            Student.prototype = new Other;
+            return Student;
+        })();
+
+
+        let s = new Student('1010', '王八', 18);
+        console.log(s);
+
+        Student.prototype.a = 10;
+        console.log(Person.prototype)
+
+
+
+    </script>
+</body>
+
+</html>

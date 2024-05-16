@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            例如项目中需要验证手机号与邮箱功能 但是验证位置比较多的 所以可以将验证代码封装成为函数
+        */
+
+        // 1、常规做法 将每一个需要验证的 封装成为一个函数
+        // function checkMobile(mobile){
+        //     return /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/.test(mobile);
+        // }
+
+        // function checkEmail(email){
+        //     return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email);
+        // }
+        // 2、封装一个函数实现验证功能  因为上面虽然解决问题 但是两个函数都是在做验证功能 可以进行合并
+
+        // function check(value, reg) {
+        //     return reg.test(value);
+        // }
+        // 每次调用还需要将正则在写一遍
+        // check('18520409111',/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/)
+        // 所以如果可以将这个不同的验证字段(手机号、邮箱等) 长期的保存 直接调用函数即可
+        // 所以最终使用闭包保存正则对象
+        // function checkForm(rule) {
+        //     return function (value) {
+        //         return rule.test(value);
+        //     }
+        // }
+        // // 返回的函数赋值给了checkMobile
+        // const checkMobile = checkForm(/^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/);
+        // const checkEmail = checkForm(/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/)
+
+        // console.log(checkMobile('111'))
+        // 上面的代码 将原本check函数需要传递两个参数的形式 改写成了 通过两次传递参数来实现，这种改写调用形式的就叫做柯里化
+
+
+        function sum(a, b, c, d) {
+            return a + b + c + d
+        }
+
+        // a(1)(2)(3)(4)
+        // a(1,2)(3)(4)
+        // a(1)(2,3)(4)
+        // 柯里化函数 可以将指定函数调用改写多次调用的形式
+        function curry(handler, ...args) {
+            // 获取需要被柯里化函数的形参个数
+            let len = handler.length;
+            // len = 4
+            // args = [1,2,3]
+            return function (...data) {
+                // 将第一次调用的初始化的值与现在调用传递的参数合并到一个数组中
+                data = [...args, ...data];
+                // data=[1,2,3,4]
+                if (data.length >= len) {
+                    console.log(1)
+                    // 说明现在函数的参数传递完毕了 可以调用需要转换为柯里化写法函数
+                    return handler(...data);
+                } else {
+                    console.log(2)
+                    // 说明现在参数还不够需要继续收集函数的参数
+                    return curry(handler, ...data);
+                }
+            }
+        }
+        // let count = curry(sum)(1,2,3,4)
+        // let count = curry(sum, 1)(2, 3, 4);
+        let count = curry(sum,1,2)(3)(4);
+        // let count = curry(sum,1,2,3)(4);
+        // let count = curry(sum,1,2,3,4)();
+        // console.log(count);
+
+
+        // function check(reg, value) {
+        //     return reg.test(value);
+        // }
+
+        // const checkEmail = curry(check, /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/)
+        // console.log(checkEmail('111@qq.com'))
+
+
+    </script>
+</body>
+
+</html>

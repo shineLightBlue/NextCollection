@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 缓存是一种优化策略 可以提升运行速度
+        // 缓存就是将一些大量运算的比较费时的结果存储起来  例如计算一个数字的平方 需要消耗一秒钟，在代码可能会对这个值经常使用 每次使用每次计算。所以为了提升速度，在第一次计算的时候将结果保留下来，如果下次需要使用相同规则所计算的出结果 就可以直接使用
+        // 在js一般存储缓存需要使用对象格式 属性名称 一般使用需要计算规则中未知部分组合形参一个字符串 属性值存储规则计算出的结果
+
+        function cache() {
+            // 保存结果 属性名称 使用数字表示
+            let result = {};
+            return function (number) {
+                // 先判断前面是否计算过number这个数的平方 如果计算过了就直接使用结果 否则重新计算 将结果再次保存到result中
+                if(result[number] == undefined){
+                    console.log('重新计算')
+                    result[number] = number * number;
+                }
+                return result[number];
+            }
+        }
+        
+        let action = cache();
+        // action(2);
+        // console.log(action(2))
+        // console.log(action(4))
+        // console.log(action(4))
+        // action(4);
+        // action(2)
+        console.log(cache()(2))
+        console.log(cache()(2)) //错误
+        // cache()(2);
+
+    </script>
+</body>
+
+</html>

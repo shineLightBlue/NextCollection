@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // // 记录存款
+        // let money = 0;
+        // // 发工资
+        // money += 10000;
+        // // 消费
+        // money -= 30000;
+        // // 2、使用函数
+        // function account(number, type) {
+        //     let money = 0;
+        //     if (type == 'add') {
+        //         money += number;
+        //     } else {
+        //         money -= number;
+        //     }
+        //     return money;
+        // }
+        // console.log(account(10000, 'add'));
+        // console.log(account(30000, 'decr'));
+
+
+        function account() {
+            let money = 0;
+            function fn(number, type) {
+                if (type == 'add') {
+                    money += number;
+                } else {
+                    money -= number;
+                }
+                return money;
+            }
+            return fn;
+        }
+        // // 调用account 得到函数的地址
+        let userAccount = account();
+        // console.log(userAccount(10000,'add'));//1
+        // console.log(userAccount(30000,'decr'));//-2
+        
+        // let userAccount2 = account();
+        // console.log(userAccount2(10000,'add'));//-1
+        // console.log(userAccount2(30000,'decr'));//-4
+
+    </script>
+</body>
+
+</html>

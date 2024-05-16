@@ -1,0 +1,13 @@
+export declare enum ApiErrorCode {
+    SUCCESS = 200,
+    USER_ID_INVALID = 10001,
+    USER_NOTEXIST = 10002,
+    USER_EXIST = 10003,
+    PERMISSSION_EXIST = 10004,
+    ROLE_EXIST = 10005,
+    PASSWORD_ERROR = 20005,
+    FORBIDDEN = 400,
+    LOGIN_EXPIRE = 401,
+    Forbidden = 403,
+    DATABASE_ERROR = 30001
+}

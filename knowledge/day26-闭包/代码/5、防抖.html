@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>搜索</button>
+    <!-- <script src="../../common.js"></script> -->
+    <script>
+        // 5、封装闭包函数
+        // document.querySelector('button').onclick = antiShake(function (e) {
+        //     // 只写自己的业务逻辑代码
+        //     console.log('业务逻辑洒洒水');
+        //     console.log(this);
+        // }, 2000)
+        // // 4、使用闭包保护全局变量
+        // function fn() {
+        //     let timer;
+        //     return function () {
+        //         clearTimeout(timer);
+        //         timer = setTimeout(() => {
+        //             console.log('月亮不睡我不睡');
+        //         }, 1000)
+        //     }
+        // }
+        // document.querySelector('button').onclick = fn();
+        // 3、简单的防抖
+        // let timer ;
+        // document.querySelector('button').onclick = function(){
+        //     clearTimeout(timer);
+        //     timer = setTimeout(()=>{
+        //         console.log('后端大爷给我份数据吧');
+        //     },1000);
+        // }
+        // 2、防抖概念
+        // 防抖就像进入电梯，当电梯门打开进去一个人 等待一段时间之后才会关门，在等待的期间 如果再次有人进入，时间重置  中途触发了事件一定要重置事件
+
+        // 1、常规做法
+        // document.querySelector('button').onclick = function(){
+        //     // 以后每次需要数据都需要与后端进行通信 通信需要消耗资源
+        //     console.log('后端大爷给我份数据吧');
+        // }
+        function antiShake(handler, time) {
+            let timer;
+            //因为事件触发系统会自动将这个匿名函数调用 形参event就是事件对象
+            return function (event) {
+                console.log(event)
+                //事件处理程序中this 表示事件源的dom对象
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    //箭头函数还是保留使用前面的this 所以 将handler函数中this强制修改为当前事件的dom对象
+                    handler.call(this, event);
+                    // handler(event)
+                }, time)
+            }
+        }
+        // 5、封装闭包函数
+        document.querySelector('button').onclick = antiShake(function (e) {
+            // 只写自己的业务逻辑代码
+            console.log('业务逻辑洒洒水');
+            console.log(this,e);
+        }, 2000)
+    </script>
+</body>
+
+</html>
